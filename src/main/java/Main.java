@@ -1,4 +1,4 @@
-// Bapers Server | coded by Safat
+// Bapers Server
 
 // the main the class is the router, using the interpretation
 // it will pass the data on to the controller
