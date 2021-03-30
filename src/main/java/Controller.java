@@ -9,13 +9,15 @@ import java.util.LinkedList;
 
 public class Controller {
 
-    public Controller() {
+    private Connection con;
 
+    public Controller(Connection con) {
+        this.con = con;
     }
 
     public void genIndPerf() throws Exception { // need to implement the based on time
 
-        ResultSet rs = getFromDB(indPerfQ());
+        ResultSet rs = getFromDB(con, indPerfQ());
         int prevStaff = 1;
         int totalStaff = 0;
         int totalEffort = 0;
@@ -53,7 +55,7 @@ public class Controller {
     public void genJobSheet(int custNo, int jsNr) throws Exception {
 
         // Getting result set from the Database
-        ResultSet rs = getFromDB(jobSheetQ(custNo));
+        ResultSet rs = getFromDB(con, jobSheetQ(custNo));
 
         int prevJobId = 0;
         LinkedList<String> jsd = new LinkedList<>();
@@ -78,12 +80,9 @@ public class Controller {
     }
 
     // method to get data from the database
-    private ResultSet getFromDB(String q) throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:mariadb://localhost:3306/bapers", "root", "");
+    private ResultSet getFromDB(Connection con, String q) throws SQLException {
         Statement stm = con.createStatement();
-        ResultSet rs = stm.executeQuery(q);
-        con.close();
-        return rs;
+        return stm.executeQuery(q);
     }
 
     private String convertTimeToString(Time t) {
