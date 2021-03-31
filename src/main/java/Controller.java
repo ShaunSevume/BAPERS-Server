@@ -79,6 +79,14 @@ public class Controller {
         js.generate();
     }
 
+    //generate invoice
+    public void genInvoice(String jID) throws Exception {
+
+        int jobID = Integer.valueOf(jID);
+        // Getting result set from the Database
+        ResultSet rs = getFromDB(con, invoiceQ(jobID));
+    }
+
     // method to get data from the database
     private ResultSet getFromDB(Connection con, String q) throws SQLException {
         Statement stm = con.createStatement();
@@ -106,4 +114,11 @@ public class Controller {
                 "LEFT JOIN tasktypes tt on t.tasktype_id = tt.tt_id WHERE tt.tt_id IS NOT NULL ORDER BY s.s_id";
     }
 
+    private String sumPerfQ() {
+        return " ";
+    }
+
+    private String invoiceQ(int jobID) {
+        return " ";
+    }
 }
